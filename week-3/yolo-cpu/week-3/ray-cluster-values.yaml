@@ -1,0 +1,41 @@
+image:
+  repository: spodarets/ray-worker
+  tag: "2.46.0-py310-aarch64"
+  pullPolicy: IfNotPresent
+
+head:
+  # Збільшуємо ресурси для head ноди, щоб уникнути OOM помилок
+  resources:
+    limits:
+      cpu: "1"
+      memory: "6G"
+    requests:
+      cpu: "0.5"
+      memory: "6G"
+  
+  # Параметри запуску Ray - встановлюємо 0 CPU для head ноди
+  rayStartParams:
+    num-cpus: "0"
+    dashboard-host: "0.0.0.0"
+  
+  # Вмикаємо автомасштабування зі scale-to-zero
+  enableInTreeAutoscaling: true
+  autoscalerOptions:
+    upscalingMode: Default
+    idleTimeoutSeconds: 60
+
+# Налаштування для worker нод - scale-to-zero
+worker:
+  # Повне відключення worker нод при старті (scale-to-zero)
+  replicas: 0
+  minReplicas: 0  
+  maxReplicas: 10
+  
+  # Ресурси для worker нод (коли вони будуть створені)
+  resources:
+    limits:
+      cpu: "1"
+      memory: "6G"
+    requests:
+      cpu: "0.5"
+      memory: "1G"

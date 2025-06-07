@@ -1,0 +1,10 @@
+ultralytics
+wandb
+torch
+torchvision
+opencv-python
+Pillow
+numpy
+matplotlib
+pyyaml
+python-dotenv

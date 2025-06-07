@@ -1,0 +1,8 @@
+wandb
+ultralytics
+python-dotenv
+torch
+torchvision
+pyyaml
+ray[default]
+tensorboard
